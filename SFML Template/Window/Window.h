@@ -1,5 +1,7 @@
 #pragma once
-#include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
+#include <SFML/OpenGL.hpp>
+#include "../View.h"
 
 class Window
 {
@@ -19,7 +21,9 @@ private:
 	sf::Clock dtClock;
 	double dt;
 
-	sf::RenderWindow* window;
+	sf::Window* window;
 	sf::Event event;
+
+	View v1;
 };
 

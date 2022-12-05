@@ -3,6 +3,7 @@
 Window::Window()
 {
 	initWindow();
+	v1 = View(sf::Vector2f(400, 400), sf::Vector2f(0, 0));
 }
 
 Window::~Window()
@@ -23,13 +24,14 @@ void Window::run()
 
 void Window::render()
 {
-	window->clear();
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	window->display();
 }
 
 void Window::update()
 {
+	v1.update();
 }
 
 void Window::updateDt()
@@ -60,5 +62,8 @@ void Window::updateSFMLEvents()
 
 void Window::initWindow()
 {
-	window = new sf::RenderWindow(sf::VideoMode(100, 100), "TITLE", sf::Style::Default);
+	window = new sf::Window(sf::VideoMode(400, 400), "SFML/OpenGL Template", sf::Style::Default, sf::ContextSettings());
+	window->setFramerateLimit(60);
+	window->setVerticalSyncEnabled(true);
+	window->setActive(true);
 }
