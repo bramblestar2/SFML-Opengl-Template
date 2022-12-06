@@ -38,6 +38,11 @@ void Camera::setViewDistance(const float _Near, const float _Far)
 	viewDistance = sf::Vector2f(_Near, _Far);
 }
 
+void Camera::setCameraSpeed(const float _Speed)
+{
+	cameraSpeed = _Speed;
+}
+
 void Camera::setCameraPosition(const sf::Vector3f _Position)
 {
 	cameraPos.x = _Position.x;
@@ -90,11 +95,7 @@ void Camera::updateMouseMovement(sf::Window* window, const double _DT)
 	if (pitch < -89.0f)
 		pitch = -89.0f;
 
-	glm::vec3 direction;
-	direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-	direction.y = sin(glm::radians(pitch));
-	direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-	cameraFront = glm::normalize(direction);
+	updateDirection();
 }
 
 void Camera::updateMovement(const double _DT)
@@ -127,6 +128,26 @@ void Camera::updateMovement(const double _DT)
 		cameraPos.y += camSpeed;
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
 		cameraPos.y -= camSpeed;
+}
+
+void Camera::setSize(const float _X, const float _Y)
+{
+	setSize(sf::Vector2f(_X, _Y));
+}
+
+void Camera::setSize(const sf::Vector2f _Size)
+{
+	cameraSize = _Size;
+	updateView();
+}
+
+void Camera::updateDirection()
+{
+	glm::vec3 direction;
+	direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+	direction.y = sin(glm::radians(pitch));
+	direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+	cameraFront = glm::normalize(direction);
 }
 
 void Camera::updateView()
