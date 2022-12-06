@@ -82,7 +82,7 @@ void Window::updateSFMLEvents()
 
 void Window::initWindow()
 {
-	window = new sf::Window(sf::VideoMode(400, 400), "SFML/OpenGL Template", sf::Style::Default, sf::ContextSettings(24, 8, 0, 3, 3));
+	window = new sf::Window(sf::VideoMode(500, 400), "SFML/OpenGL Template", sf::Style::Default, sf::ContextSettings(24, 8, 0, 3, 3));
 	window->setFramerateLimit(60);
 	window->setVerticalSyncEnabled(true);
 	window->setActive(true);
