@@ -28,25 +28,27 @@ public:
 	float getMouseSensitivity() const { return mouseSensitivity; }
 	glm::vec3 getCameraPosition() const { return cameraPos; }
 
-	void setViewDistance(const float _Near, const float _Far);
 	void setSize(const float _X, const float _Y);
 	void setSize(const sf::Vector2f _Size);
+	void setMouseSensitivity(const float _Sensitivity) { mouseSensitivity = _Sensitivity; }
+	void setLastMouse(const sf::Vector2f _Last);
+	
+	void setViewDistance(const float _Near, const float _Far);
 	void setCameraSpeed(const float _Speed) { cameraSpeed = _Speed; }
 	void setCameraPosition(const sf::Vector3f _Position);
-	void setMouseSensitivity(const float _Sensitivity) { mouseSensitivity = _Sensitivity; }
 	void setYaw(const float _Yaw) { yaw = _Yaw; updateDirection(); }
 	void setPitch(const float _Pitch) { pitch = _Pitch; updateDirection(); }
 
 	void move(const float _X, const float _Y, const float _Z) { move(sf::Vector3f(_X, _Y, _Z)); }
 	void move(const sf::Vector3f _Direction);
 
-	void updateView();
 	void update(const double _DT);
 	void updateMouseMovement(sf::Window* window, const double _DT);
 	void updateMovement(const double _DT);
 
 private:
 	void updateDirection();
+	void updateView();
 
 	sf::Vector2f cameraSize;
 	//X > Near

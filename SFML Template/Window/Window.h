@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Window.hpp>
 #include <SFML/OpenGL.hpp>
-#include "../View.h"
+#include "../Camera.h"
 
 class Window
 {
@@ -24,6 +24,8 @@ private:
 	sf::Window* window;
 	sf::Event event;
 
-	View v1;
+	Camera c1;
+
+	bool cameraPaused;
 };
 

@@ -3,7 +3,13 @@
 Window::Window()
 {
 	initWindow();
-	v1 = View(sf::Vector2f(400, 400), sf::Vector2f(0, 0));
+
+	c1 = Camera(sf::Vector2f(window->getSize()), sf::Vector3f(0, 0, 3));
+
+	cameraPaused = false;
+
+	c1.setMouseSensitivity(0.25f);
+	c1.enableDepth();
 }
 
 Window::~Window()
@@ -31,7 +37,12 @@ void Window::render()
 
 void Window::update()
 {
-	v1.update();
+	if (!cameraPaused)
+	{
+		c1.updateMovement(dt);
+		c1.updateMouseMovement(window, dt);
+		c1.update(dt);
+	}
 }
 
 void Window::updateDt()
@@ -46,23 +57,32 @@ void Window::updateSFMLEvents()
 		switch (event.type)
 		{
 		case sf::Event::Closed:
-				window->close();
-				break;
+			window->close();
+			break;
+
 		case sf::Event::KeyPressed:
-				switch (event.key.code)
-				{
+			switch (event.key.code)
+			{
 				case sf::Keyboard::Escape:
-						window->close();
-						break;
-				}
-				break;
+					window->close();
+					break;
+				case sf::Keyboard::Tab:
+					cameraPaused = cameraPaused ? false : true;
+					if (!cameraPaused)
+						c1.setLastMouse(sf::Vector2f(sf::Mouse::getPosition(*window)));
+					break;
+			}
+			break;
+
+		case sf::Event::MouseMoved:
+			break;
 		}
 	}
 }
 
 void Window::initWindow()
 {
-	window = new sf::Window(sf::VideoMode(400, 400), "SFML/OpenGL Template", sf::Style::Default, sf::ContextSettings());
+	window = new sf::Window(sf::VideoMode(400, 400), "SFML/OpenGL Template", sf::Style::Default, sf::ContextSettings(24, 8, 0, 3, 3));
 	window->setFramerateLimit(60);
 	window->setVerticalSyncEnabled(true);
 	window->setActive(true);

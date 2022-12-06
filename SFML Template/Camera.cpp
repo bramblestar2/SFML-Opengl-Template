@@ -38,11 +38,6 @@ void Camera::setViewDistance(const float _Near, const float _Far)
 	viewDistance = sf::Vector2f(_Near, _Far);
 }
 
-void Camera::setCameraSpeed(const float _Speed)
-{
-	cameraSpeed = _Speed;
-}
-
 void Camera::setCameraPosition(const sf::Vector3f _Position)
 {
 	cameraPos.x = _Position.x;
@@ -83,7 +78,7 @@ void Camera::updateMouseMovement(sf::Window* window, const double _DT)
 	last.x = xpos;
 	last.y = ypos;
 
-	float sensitivity = 0.15f;
+	float sensitivity = mouseSensitivity;
 	xoffset *= sensitivity;
 	yoffset *= sensitivity;
 
@@ -139,6 +134,11 @@ void Camera::setSize(const sf::Vector2f _Size)
 {
 	cameraSize = _Size;
 	updateView();
+}
+
+void Camera::setLastMouse(const sf::Vector2f _Last)
+{
+	last = _Last;
 }
 
 void Camera::updateDirection()
