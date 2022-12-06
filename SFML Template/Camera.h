@@ -14,6 +14,12 @@
 
 enum class Camera_Movement { FORWARD, BACKWARD, LEFT, RIGHT, UP, DOWN };
 
+/// <summary>
+/// If you are bringing this class into another project,
+/// make sure to change the Context Settings of the window,
+/// because if not, there won't be any depth and shapes
+/// will overlap each other
+/// </summary>
 class Camera
 {
 public:
